@@ -1,0 +1,21 @@
+{
+  spiegel_articles: get(url: "http://www.spiegel.de") {
+    statusCode
+    statusMessage
+    charset
+    document {
+      location
+      title
+      articles: select(selector: ".teaser") {
+        all: elements {
+          title: select(selector: ".article-title") {
+            intro: text(selector: ".headline-intro")
+            headline: text(selector: ".headline")
+            link: attr(selector: "a", key: "href")
+          }
+          intro: text(selector: ".article-intro")
+        }
+      }
+    }
+  }
+}

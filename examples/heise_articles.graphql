@@ -1,0 +1,23 @@
+{
+  heise_articles: get(url: "https://heise.de") {
+    statusCode
+    statusMessage
+    charset
+    document {
+      location
+      title
+      articles: select(selector: "article.a-article-teaser") {
+        actual: elements(filter: "article:has(time[datetime])") {
+          header: text(selector: "h1")
+          time: attr(selector: "time", key: "datetime")
+          synopsis: text(selector: "p")
+          img: attr(selector: "img", key: "src")
+          link: select(selector: "a.a-article-teaser__link") {
+            url: attr(key: "href")
+            title: attr(key: "title")
+          }
+        }
+      }
+    }
+  }
+}

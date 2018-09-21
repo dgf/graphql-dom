@@ -1,0 +1,18 @@
+{
+  golang_blog_articles: get(url: "https://blog.golang.org/index") {
+    statusCode
+    statusMessage
+    charset
+    document {
+      location
+      title
+      articles: select(selector: ".blogtitle") {
+        all: elements {
+          title: text(selector: "a")
+          date: text(selector: ".date")
+          link: attr(selector: "a", key: "href")
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+# HTML element
+type Element {
+
+  # Attribute of the first selection.
+  attr(selector: String, key: String): String
+
+  # HTML of the first selection.
+  html(selector: String): String
+
+  # Text of the first selection.
+  text(selector: String): String
+
+  # Select elements.
+  select(selector: String): Elements
+}
+
+type Elements {
+
+  # Attribute of the first selection.
+  attr(selector: String, key: String): String
+
+  # HTML of the first selection.
+  html(selector: String): String
+
+  # Text of the first selection.
+  text(selector: String): String
+
+  # Get all selected elements.
+  elements(filter: String): [Element]
+
+  # Select elements.
+  select(selector: String): Elements
+}
+
+# HTML document as the root for selections,
+# see https://jsoup.org/apidocs/org/jsoup/select/Selector.html
+type Document {
+
+  # URL of this Document.
+  location: String
+
+  # Text of the DOM title element.
+  title: String
+
+  # Select elements.
+  select(selector: String): Elements
+}
+
+# HTTP response.
+type Response {
+
+  # HTTP status code.
+  statusCode: Int
+
+  # HTTP status message.
+  statusMessage: String
+
+  # Charset of Content-Type header.
+  charset: String
+
+  # Content type.
+  contentType: String
+
+  # Get the DOM for selections.
+  document: Document
+}
+
+# A GraphQL based HTML binding for arbitrary DOM selections.
+type Query {
+  # Connect a URL to fetch the root Document.
+  get (
+    # The accessible URL to connect to.
+    url: String
+  ): Response
+}
+
+schema {
+  query: Query
+}

@@ -1,0 +1,19 @@
+{
+  jaxenter_posts: get(url: "https://jaxenter.com/") {
+    statusCode
+    statusMessage
+    charset
+    document {
+      location
+      title
+      posts: select(selector: ".post") {
+        all: elements {
+          title: text(selector: ".title")
+          link: attr(selector: ".title a", key: "href")
+          tags: text(selector: ".tags")
+          text: text(selector: ".text")
+        }
+      }
+    }
+  }
+}
